@@ -1,0 +1,31 @@
+﻿<div>
+     <form action="createmeeting" method="post">
+        <div class="form-group">
+            <label asp-for="Name">Name</label>
+            <input asp-for="Name" name="Name"/>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description">Description</label>
+            <input asp-for="Description" name="Description" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Location">Location</label>
+            <input asp-for="Location" name="Location" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Categories">Categories</label>
+            <input asp-for="Categories"  name="Categories"/>
+        </div>
+        <div class="form-group">
+            <label asp-for="StartingTime">Starting time</label>
+            <input asp-for="StartingTime" name="StartingTime" type="datetime-local" />
+        </div>
+        <div class="form-group">
+            <label asp-for="EndingTime">Ending time</label>
+            <input asp-for="EndingTime" name="EndingTime" type="datetime-local" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create"/>
+        </div>
+        </form>
+</div>
