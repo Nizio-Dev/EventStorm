@@ -18,19 +18,8 @@ namespace EventStorm.Infrastructure.Persistance
             base.OnModelCreating(builder);
 
             builder.Entity<Attender>()
-                .HasMany(a => a.Attendances)
-                .WithOne(a => a.Attender);
-
-            builder.Entity<Attender>()
                 .HasMany(a => a.MeetingsOwnership)
                 .WithOne(m => m.Owner);
-
-            builder.Entity<Attendance>()
-                .HasOne(a => a.Meeting)
-                .WithMany(m => m.Attendances);
-
-            builder.Entity<Meeting>()
-                .HasMany(m => m.Categories);
         }
     }
 }

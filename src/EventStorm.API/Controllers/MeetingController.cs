@@ -2,6 +2,7 @@
 using EventStorm.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Sieve.Models;
 
 namespace EventStorm.API.Controllers
 {
@@ -20,9 +21,9 @@ namespace EventStorm.API.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> GetMeetings()
+		public async Task<IActionResult> GetMeetings([FromQuery]SieveModel sieveModel)
 		{
-			var meetings = await _meetingService.GetAllAsync();
+			var meetings = await _meetingService.GetAllAsync(sieveModel);
 
 			return Ok(meetings);
 		}

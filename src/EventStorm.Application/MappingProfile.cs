@@ -16,8 +16,6 @@ namespace EventStorm.Application
                 .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.GetName()))
                 .ForMember(dest => dest.Email,opt => opt.MapFrom(src => src.GetEmail()));
 
-            CreateMap<Attender, AttenderDto>();
-
             CreateMap<Meeting, MeetingDto>();
 
             CreateMap<CreateMeetingDto, Meeting>();
@@ -27,6 +25,8 @@ namespace EventStorm.Application
             CreateMap<CreateCategoryDto, Category>();
 
             CreateMap<Category, CategoryDto>();
+
+            CreateMap<Attender, AttenderDto>();
 		}
     }
 }

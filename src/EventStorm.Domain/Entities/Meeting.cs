@@ -4,7 +4,9 @@
     {
         public string Id { get; set; }
 
-        public Attender Owner { get; set; }
+		public string OwnerId { get; set; }
+
+		public Attender Owner { get; set; }
 
         public string Name { get; set; }
 
