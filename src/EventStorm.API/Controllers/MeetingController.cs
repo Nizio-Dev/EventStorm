@@ -21,7 +21,7 @@ namespace EventStorm.API.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> GetMeetings([FromQuery]SieveModel sieveModel)
+		public async Task<ActionResult> GetMeetings([FromQuery]SieveModel sieveModel)
 		{
 			var meetings = await _meetingService.GetAllAsync(sieveModel);
 
@@ -29,22 +29,33 @@ namespace EventStorm.API.Controllers
 		}
 
 		[HttpGet]
-		[Route("{id}")]
-		public async Task<IActionResult> GetMeeting([FromRoute]string id)
+		[Route("{meetingId}")]
+		public async Task<ActionResult> GetMeeting([FromRoute]string meetingId)
 		{
-			var meeting = await _meetingService.GetAsync(id);
+			var meeting = await _meetingService.GetAsync(meetingId);
 
 			return Ok(meeting);
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> CreateMeeting([FromBody]CreateMeetingDto meetingDto)
+		public async Task<ActionResult> CreateMeeting([FromBody]CreateMeetingDto meetingDto)
 		{
 			var owner = await _attenderService.GetAsync(User);
 
 			var meeting = await _meetingService.CreateAsync(meetingDto, owner);
 
-			return CreatedAtAction(nameof(GetMeeting), new { id = meeting.Id }, meeting);
+			return CreatedAtAction(nameof(GetMeeting), new { meetingId = meeting.Id }, meeting);
+		}
+
+		[HttpPost]
+		[Route("{meetingId}/attend")]
+		public async Task<ActionResult> AttendMeeting([FromRoute]string meetingId)
+		{
+			var attender = await _attenderService.GetAsync(User);
+
+			var requestedMeeting = await _meetingService.AttendAsync(meetingId, attender);
+
+			return Ok(requestedMeeting);
 		}
 	}
 }

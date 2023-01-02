@@ -20,7 +20,7 @@ namespace EventStorm.API.Controllers
 
 		[Route("synchronize")]
 		[HttpPost]
-		public async Task<IActionResult> Synchronize()
+		public async Task<ActionResult> Synchronize()
 		{
 			var attender = await _attenderService.GetAsync(User);
 
@@ -37,17 +37,17 @@ namespace EventStorm.API.Controllers
 			return Ok(attender);
 		}
 
-		[Route("{id}")]
+		[Route("{attenderId}")]
 		[HttpGet]
-		public async Task<IActionResult> GetAttender([FromRoute] string id)
+		public async Task<ActionResult> GetAttender([FromRoute] string attenderId)
 		{
-			var attender = await _attenderService.GetAsync(id);
+			var attender = await _attenderService.GetAsync(attenderId);
 
 			return Ok(attender);
 		}
 
 		[NonAction]
-		private async Task<IActionResult> createAttenderAsync()
+		private async Task<ActionResult> createAttenderAsync()
 		{
 			var newAttender = await _attenderService.CreateAsync(User);
 
@@ -61,7 +61,7 @@ namespace EventStorm.API.Controllers
 		}
 
 		[NonAction]
-		private async Task<IActionResult> updateAttenderAsync()
+		private async Task<ActionResult> updateAttenderAsync()
 		{
 			var updatedAttender = await _attenderService.UpdateAsync(User);
 

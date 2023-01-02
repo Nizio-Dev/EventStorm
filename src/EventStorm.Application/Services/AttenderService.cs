@@ -22,7 +22,7 @@ namespace EventStorm.Application.Services
 			_mapper = mapper;
 		}
 
-		public async Task<Attender> GetAsync(ClaimsPrincipal user)
+		public async Task<Attender?> GetAsync(ClaimsPrincipal user)
 		{
 			var attender = await _dbContext.Attenders
 				.FirstOrDefaultAsync(a => a.AuthProviderId == user.GetAuthProviderId());
@@ -30,12 +30,16 @@ namespace EventStorm.Application.Services
 			return attender;
 		}
 
-		public async Task<AttenderDto> GetAsync(string id)
+		public async Task<AttenderDto> GetAsync(string attenderId)
 		{
 			var attender = await _dbContext.Attenders
-				.AsNoTracking() 
 				.ProjectTo<AttenderDto>(_mapper.ConfigurationProvider)
-				.FirstOrDefaultAsync(a => a.Id == id);
+				.FirstOrDefaultAsync(a => a.Id == attenderId);
+
+			if(attender == null)
+			{
+				throw new ResourceNotFoundException("Attender not found.");
+			}
 
 			return attender;
 		}

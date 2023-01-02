@@ -42,7 +42,7 @@ namespace EventStorm.Infrastructure.Migrations
 
                     b.HasIndex("MeetingId");
 
-                    b.ToTable("Attendances");
+                    b.ToTable("Attendances", (string)null);
                 });
 
             modelBuilder.Entity("EventStorm.Domain.Entities.Attender", b =>
@@ -64,7 +64,7 @@ namespace EventStorm.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Attenders");
+                    b.ToTable("Attenders", (string)null);
                 });
 
             modelBuilder.Entity("EventStorm.Domain.Entities.Category", b =>
@@ -83,7 +83,7 @@ namespace EventStorm.Infrastructure.Migrations
 
                     b.HasIndex("MeetingId");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("EventStorm.Domain.Entities.Meeting", b =>
@@ -120,7 +120,7 @@ namespace EventStorm.Infrastructure.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Meetings");
+                    b.ToTable("Meetings", (string)null);
                 });
 
             modelBuilder.Entity("EventStorm.Domain.Entities.Attendance", b =>

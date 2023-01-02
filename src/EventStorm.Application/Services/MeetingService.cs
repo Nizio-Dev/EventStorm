@@ -4,7 +4,6 @@ using EventStorm.Application.Exceptions;
 using EventStorm.Application.Requests;
 using EventStorm.Application.Responses;
 using EventStorm.Domain.Entities;
-using EventStorm.Domain.Types;
 using EventStorm.Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Sieve.Models;
@@ -40,14 +39,18 @@ namespace EventStorm.Application.Services
 			return result;
 		}
 
-		public async Task<MeetingDto> GetAsync(string id)
+		public async Task<MeetingDto> GetAsync(string meetingId)
 		{
 			var meeting = await _dbContext.Meetings
-				.AsNoTracking()
 				.Include(m => m.Owner)
 				.Include(m => m.Attendances)
 				.Include(m => m.Categories)
-				.FirstOrDefaultAsync(m => m.Id == id);
+				.FirstOrDefaultAsync(m => m.Id == meetingId);
+
+			if(meeting == null)
+			{
+				throw new ResourceNotFoundException("Meeting not found.");
+			}
 
 			return _mapper.Map<MeetingDto>(meeting);
 		}
@@ -68,6 +71,33 @@ namespace EventStorm.Application.Services
 			await _dbContext.SaveChangesAsync();
 
 			return _mapper.Map<MeetingDto>(newMeeting);
+		}
+
+		public async Task<MeetingDto> AttendAsync(string meetingId, Attender attender)
+		{
+			var requestedMeeting = await _dbContext.Meetings
+				.Include(m => m.Attendances)
+				.FirstOrDefaultAsync(m => m.Id == meetingId);
+
+			if (requestedMeeting == null)
+			{
+				throw new ResourceNotFoundException("Meeting not found.");
+			}
+
+			if((requestedMeeting.Attendances.Count >= requestedMeeting.MaxAttenders) && requestedMeeting.MaxAttenders > 0)
+			{
+				throw new MaxUsersExcedeedException("The meeting is full");
+			}
+
+			requestedMeeting.Attendances.Add(new Attendance
+			{
+				Attender = attender,
+				Meeting = requestedMeeting
+			});
+
+			await _dbContext.SaveChangesAsync();
+
+			return _mapper.Map<MeetingDto>(requestedMeeting);
 		}
 	}
 }

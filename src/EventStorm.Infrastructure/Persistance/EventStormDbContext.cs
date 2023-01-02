@@ -20,6 +20,10 @@ namespace EventStorm.Infrastructure.Persistance
             builder.Entity<Attender>()
                 .HasMany(a => a.MeetingsOwnership)
                 .WithOne(m => m.Owner);
+
+            builder.Entity<Meeting>()
+                .Property(m => m.Name)
+                .HasMaxLength(50);
         }
     }
 }
