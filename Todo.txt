@@ -1,4 +1,4 @@
 1. Add tests
 2. Add polly
 3. Add fluent api for data schema in DB
-4. Add fluentvalidation
+4. Finish fluent validation

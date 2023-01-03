@@ -84,6 +84,11 @@ namespace EventStorm.Application.Services
 				throw new ResourceNotFoundException("Meeting not found.");
 			}
 
+			if(attender.Attendances.FirstOrDefault(a => a.MeetingId == meetingId) != null)
+			{
+				throw new AttenderAlreadyInMeetingException("Attender already attends the meeting.");
+			}
+
 			if((requestedMeeting.Attendances.Count >= requestedMeeting.MaxAttenders) && requestedMeeting.MaxAttenders > 0)
 			{
 				throw new MaxUsersExcedeedException("The meeting is full");

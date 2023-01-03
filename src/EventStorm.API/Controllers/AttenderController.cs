@@ -51,7 +51,7 @@ namespace EventStorm.API.Controllers
 		{
 			var newAttender = await _attenderService.CreateAsync(User);
 
-			return CreatedAtAction(nameof(GetAttender), new { id = newAttender.Id }, newAttender);
+			return CreatedAtAction(nameof(GetAttender), new { attenderId = newAttender.Id }, newAttender);
 		}
 
 		[NonAction]
