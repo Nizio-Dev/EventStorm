@@ -104,5 +104,16 @@ namespace EventStorm.Application.Services
 
 			return _mapper.Map<MeetingDto>(requestedMeeting);
 		}
+
+		public async Task<MeetingDto> UpdateAsync(string meetingId, EditMeetingDto meeting)
+		{
+			var requestedMeeting = await _dbContext.Meetings
+				.FirstOrDefaultAsync(m => m.Id == meetingId);
+
+            if (requestedMeeting == null)
+            {
+                throw new ResourceNotFoundException("Meeting not found.");
+            }
+        }
 	}
 }

@@ -57,5 +57,15 @@ namespace EventStorm.API.Controllers
 
 			return Ok(requestedMeeting);
 		}
+
+		[HttpPatch]
+		[Route("{meetingId")]
+		public async Task<ActionResult> EditMeeting([FromRoute] string meetingId)
+		{
+			var meeting = await _meetingService.UpdateAsync(meetingId);
+
+			return Ok();
+		}
+
 	}
 }

@@ -2,3 +2,4 @@
 2. Add polly
 3. Add fluent api for data schema in DB
 4. Finish fluent validation
+5. Add editing/patch to meeting
