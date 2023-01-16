@@ -20,11 +20,9 @@ namespace EventStorm.Application
 
             CreateMap<CreateMeetingDto, Meeting>();
 
+            CreateMap<EditMeetingDto, Meeting>();
+
             CreateMap<Attendance, MeetingAttendanceDto>();
-
-            CreateMap<CreateCategoryDto, Category>();
-
-            CreateMap<Category, CategoryDto>();
 
             CreateMap<Attender, AttenderDto>();
 		}

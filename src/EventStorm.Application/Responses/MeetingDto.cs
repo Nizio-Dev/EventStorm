@@ -18,7 +18,7 @@ namespace EventStorm.Application.Responses
 
 		public ICollection<MeetingAttendanceDto> Attendances { get; set; }
 
-		public ICollection<CategoryDto> Categories { get; set; }
+		public ICollection<string> Categories { get; set; }
 
 		public DateTime StartingTime { get; set; }
 

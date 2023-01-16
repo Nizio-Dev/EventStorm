@@ -18,7 +18,7 @@
 
 		public ICollection<Attendance> Attendances { get; set; }
 
-        public ICollection<Category> Categories { get; set; }
+        public List<string> Categories { get; set; }
 
         public DateTime StartingTime { get; set; }
 
@@ -28,7 +28,6 @@
         {
             Id = Guid.NewGuid().ToString();
             Attendances = new List<Attendance>();
-            Categories = new List<Category>();
         }
     }
 }

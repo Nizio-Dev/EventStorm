@@ -5,14 +5,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace EventStorm.Infrastructure.Migrations
 {
     [DbContext(typeof(EventStormDbContext))]
-    [Migration("20221230185955_revamped categories")]
-    partial class revampedcategories
+    [Migration("20230112150914_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,24 +21,26 @@ namespace EventStorm.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.1")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("EventStorm.Domain.Entities.Attendance", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("text");
 
                     b.Property<string>("AttenderId")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("text");
 
                     b.Property<string>("MeetingId")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -51,73 +54,59 @@ namespace EventStorm.Infrastructure.Migrations
             modelBuilder.Entity("EventStorm.Domain.Entities.Attender", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("text");
 
-                    b.Property<string>("Auth0Id")
+                    b.Property<string>("AuthProviderId")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("text");
 
                     b.Property<string>("DisplayName")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Attenders");
                 });
 
-            modelBuilder.Entity("EventStorm.Domain.Entities.Category", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("MeetingId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MeetingId");
-
-                    b.ToTable("Category");
-                });
-
             modelBuilder.Entity("EventStorm.Domain.Entities.Meeting", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("text");
+
+                    b.Property<string[]>("Categories")
+                        .IsRequired()
+                        .HasColumnType("text[]");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("EndingTime")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Location")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("text");
 
                     b.Property<int>("MaxAttenders")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("OwnerId")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("StartingTime")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -145,13 +134,6 @@ namespace EventStorm.Infrastructure.Migrations
                     b.Navigation("Meeting");
                 });
 
-            modelBuilder.Entity("EventStorm.Domain.Entities.Category", b =>
-                {
-                    b.HasOne("EventStorm.Domain.Entities.Meeting", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("MeetingId");
-                });
-
             modelBuilder.Entity("EventStorm.Domain.Entities.Meeting", b =>
                 {
                     b.HasOne("EventStorm.Domain.Entities.Attender", "Owner")
@@ -173,8 +155,6 @@ namespace EventStorm.Infrastructure.Migrations
             modelBuilder.Entity("EventStorm.Domain.Entities.Meeting", b =>
                 {
                     b.Navigation("Attendances");
-
-                    b.Navigation("Categories");
                 });
 #pragma warning restore 612, 618
         }

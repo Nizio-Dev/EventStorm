@@ -1,4 +1,5 @@
-﻿using EventStorm.Application.Services;
+﻿using EventStorm.API.Attributes;
+using EventStorm.Application.Services;
 using EventStorm.Domain.Entities;
 using EventStorm.Web.Helpers;
 using Microsoft.AspNetCore.Authorization;
@@ -37,11 +38,12 @@ namespace EventStorm.API.Controllers
 			return Ok(attender);
 		}
 
-		[Route("{attenderId}")]
+        [ResourceExists(typeof(Attender))]
+        [Route("{id}")]
 		[HttpGet]
-		public async Task<ActionResult> GetAttender([FromRoute] string attenderId)
+		public async Task<ActionResult> GetAttender([FromRoute] string id)
 		{
-			var attender = await _attenderService.GetAsync(attenderId);
+			var attender = await _attenderService.GetAsync(id);
 
 			return Ok(attender);
 		}
@@ -51,7 +53,7 @@ namespace EventStorm.API.Controllers
 		{
 			var newAttender = await _attenderService.CreateAsync(User);
 
-			return CreatedAtAction(nameof(GetAttender), new { attenderId = newAttender.Id }, newAttender);
+			return CreatedAtAction(nameof(GetAttender), new { id = newAttender.Id }, newAttender);
 		}
 
 		[NonAction]

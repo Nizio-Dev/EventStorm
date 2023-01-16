@@ -17,6 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStorm.API", "src\Event
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E7FE3B2D-E6CA-4B33-A582-084A909877FB}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		docker-compose.yml = docker-compose.yml
+		editorconfig = editorconfig
 		Todo.txt = Todo.txt
 	EndProjectSection
 EndProject
@@ -25,6 +28,19 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStorm.Application.Tests", "tests\EventStorm.Application.Tests\EventStorm.Application.Tests.csproj", "{0C9E5C6D-D6D0-42AC-9451-B54B982CC690}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventStorm.Infrastructure.Tests", "tests\EventStorm.Infrastructure.Tests\EventStorm.Infrastructure.Tests.csproj", "{6317186D-6224-4CF0-BC09-44EF443E535D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "containers", "containers", "{501DF117-9F83-48CE-8482-E5778A85D52B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{1956C317-3CBD-4C74-B2E2-F2575D80E736}"
+	ProjectSection(SolutionItems) = preProject
+		containers\api\api.env = containers\api\api.env
+		containers\api\Dockerfile = containers\api\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{E8F1A2A0-39C8-4A1C-B168-CCBF427D98C5}"
+	ProjectSection(SolutionItems) = preProject
+		containers\db\db.env = containers\db\db.env
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +88,8 @@ Global
 		{D19880CB-D352-4EBD-81E0-F6A14887DA02} = {EA33F94B-EA27-4CB0-98CF-2F8A7A120EE2}
 		{0C9E5C6D-D6D0-42AC-9451-B54B982CC690} = {EA33F94B-EA27-4CB0-98CF-2F8A7A120EE2}
 		{6317186D-6224-4CF0-BC09-44EF443E535D} = {EA33F94B-EA27-4CB0-98CF-2F8A7A120EE2}
+		{1956C317-3CBD-4C74-B2E2-F2575D80E736} = {501DF117-9F83-48CE-8482-E5778A85D52B}
+		{E8F1A2A0-39C8-4A1C-B168-CCBF427D98C5} = {501DF117-9F83-48CE-8482-E5778A85D52B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3013431D-457A-46FE-9352-55B869F99B07}

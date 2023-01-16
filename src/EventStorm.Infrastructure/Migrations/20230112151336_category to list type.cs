@@ -5,7 +5,7 @@
 namespace EventStorm.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class fixingdatabaseaddedrelationshiponownermeetingownership : Migration
+    public partial class categorytolisttype : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

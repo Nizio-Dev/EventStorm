@@ -7,7 +7,7 @@ namespace EventStorm.Application.Requests.Validators
         public CreateMeetingDtoValidator()
         {
             RuleFor(x => x.Name)
-                .NotEmpty()
+                .NotNull()
                 .MinimumLength(5)
                 .MaximumLength(30);
 
@@ -15,19 +15,19 @@ namespace EventStorm.Application.Requests.Validators
                 .MaximumLength(255);
 
             RuleFor(x => x.MaxAttenders)
-                .NotEmpty()
+                .NotNull()
                 .InclusiveBetween(0, 1000);
 
             RuleFor(x => x.Categories)
-                .NotEmpty()
+                .NotNull()
                 .Must(list => list.Count <= 10)
-                .WithMessage("Only 10 categories are allowed.");
+                .WithMessage("Only up to 10 of categories are allowed.");
 
             RuleFor(x => x.Location)
-                .NotEmpty();
+                .NotNull();
 
             RuleFor(x => x.StartingTime)
-                .NotEmpty();
+                .NotNull();
         }
     }
 }

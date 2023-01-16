@@ -1,5 +1,7 @@
-﻿using EventStorm.Application.Requests;
+﻿using EventStorm.API.Attributes;
+using EventStorm.Application.Requests;
 using EventStorm.Application.Services;
+using EventStorm.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sieve.Models;
@@ -21,50 +23,53 @@ namespace EventStorm.API.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult> GetMeetings([FromQuery]SieveModel sieveModel)
+		public async Task<ActionResult> GetMeetings([FromQuery] SieveModel sieveModel)
 		{
 			var meetings = await _meetingService.GetAllAsync(sieveModel);
 
 			return Ok(meetings);
 		}
 
-		[HttpGet]
-		[Route("{meetingId}")]
-		public async Task<ActionResult> GetMeeting([FromRoute]string meetingId)
+		[ResourceExists(typeof(Meeting))]
+        [HttpGet]
+		[Route("{id}")]
+		public async Task<ActionResult> GetMeeting([FromRoute] string id)
 		{
-			var meeting = await _meetingService.GetAsync(meetingId);
+			var meeting = await _meetingService.GetAsync(id);
 
 			return Ok(meeting);
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> CreateMeeting([FromBody]CreateMeetingDto meetingDto)
+		public async Task<ActionResult> CreateMeeting([FromBody] CreateMeetingDto meetingDto)
 		{
 			var owner = await _attenderService.GetAsync(User);
 
 			var meeting = await _meetingService.CreateAsync(meetingDto, owner);
 
-			return CreatedAtAction(nameof(GetMeeting), new { meetingId = meeting.Id }, meeting);
+			return CreatedAtAction(nameof(GetMeeting), new { id = meeting.Id }, meeting);
 		}
 
-		[HttpPost]
-		[Route("{meetingId}/attend")]
-		public async Task<ActionResult> AttendMeeting([FromRoute]string meetingId)
+        [ResourceExists(typeof(Meeting))]
+        [HttpPost]
+		[Route("{id}/attend")]
+		public async Task<ActionResult> AttendMeeting([FromRoute] string id)
 		{
 			var attender = await _attenderService.GetAsync(User);
 
-			var requestedMeeting = await _meetingService.AttendAsync(meetingId, attender);
+			var requestedMeeting = await _meetingService.AttendAsync(id, attender);
 
 			return Ok(requestedMeeting);
 		}
 
-		[HttpPatch]
-		[Route("{meetingId")]
-		public async Task<ActionResult> EditMeeting([FromRoute] string meetingId)
+        [ResourceExists(typeof(Meeting))]
+        [HttpPatch]
+		[Route("{id}")]
+		public async Task<ActionResult> EditMeeting([FromRoute] string id, [FromBody] EditMeetingDto editMeetingDto)
 		{
-			var meeting = await _meetingService.UpdateAsync(meetingId);
+			var meeting = await _meetingService.UpdateAsync(id, editMeetingDto);
 
-			return Ok();
+			return Ok(meeting);
 		}
 
 	}

@@ -11,12 +11,8 @@ namespace EventStorm.Infrastructure.Extensions
         {
             services.AddScoped<EventStormDbContext>();
 
-            var serverVersion = new MySqlServerVersion(new Version(8, 0, 31));
-
             services.AddDbContext<EventStormDbContext>(options =>
-            {
-                options.UseMySql(configuration.GetConnectionString("Default"), serverVersion);
-            });
+             options.UseNpgsql(configuration.GetConnectionString("Default")));
 
             return services;
         }

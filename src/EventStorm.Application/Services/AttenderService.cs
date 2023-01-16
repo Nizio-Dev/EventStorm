@@ -36,11 +36,6 @@ namespace EventStorm.Application.Services
 				.ProjectTo<AttenderDto>(_mapper.ConfigurationProvider)
 				.FirstOrDefaultAsync(a => a.Id == attenderId);
 
-			if(attender == null)
-			{
-				throw new ResourceNotFoundException("Attender not found.");
-			}
-
 			return attender;
 		}
 

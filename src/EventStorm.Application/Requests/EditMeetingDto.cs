@@ -10,7 +10,7 @@
 
 		public int MaxAttenders { get; set; }
 
-		public ICollection<CreateCategoryDto> Categories { get; set; }
+		public ICollection<string> Categories { get; set; }
 
 		public DateTime StartingTime { get; set; }
 

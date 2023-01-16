@@ -1,6 +1,9 @@
 using EventStorm.Application.Extensions;
 using EventStorm.Infrastructure.Extensions;
+using EventStorm.Infrastructure.Persistance;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.EntityFrameworkCore;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,7 +48,11 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+using var scope = app.Services.CreateScope();
+scope.ServiceProvider.GetRequiredService<EventStormDbContext>()
+	.Database.Migrate();
+
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

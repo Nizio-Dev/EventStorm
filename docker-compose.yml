@@ -1,0 +1,25 @@
+services:
+    eventstorm_api:
+        container_name: eventstorm_api
+        build: 
+            context: .
+            dockerfile: containers/api/Dockerfile
+        env_file:
+            - containers/api/api.env
+        networks:
+            - eventstorm_network
+        ports:
+            - 5000:5000
+        depends_on:
+            - eventstorm_db
+
+    eventstorm_db:
+        container_name: eventstorm_db
+        image: postgres
+        env_file: containers/db/db.env
+        networks:
+            - eventstorm_network
+
+networks:
+    eventstorm_network:
+        driver: bridge
