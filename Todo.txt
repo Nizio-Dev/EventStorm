@@ -2,7 +2,5 @@
 2. Add polly
 3. Add fluent api for data schema in DB
 4. Finish fluent validation
-5. Add editing/patch to meeting
-6. Move sieve to service
 7. Add Https/SSL to docker
 8. Use swagger on docker
