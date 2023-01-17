@@ -1,22 +1,24 @@
+version: '3.4'
+
+name: eventstorm
+
 services:
-    eventstorm_api:
+    eventstorm.api:
         container_name: eventstorm_api
-        build: 
+        image: ${DOCKER_REGISTRY-}eventstormapi
+        build:
             context: .
-            dockerfile: containers/api/Dockerfile
-        env_file:
-            - containers/api/api.env
-        networks:
-            - eventstorm_network
-        ports:
-            - 5000:5000
+            dockerfile: src/EventStorm.API/Dockerfile
+        env_file: src/EventStorm.API/api.env
         depends_on:
             - eventstorm_db
+        networks:
+            - eventstorm_network
 
     eventstorm_db:
         container_name: eventstorm_db
         image: postgres
-        env_file: containers/db/db.env
+        env_file: src/EventStorm.API/db.env
         networks:
             - eventstorm_network
 
