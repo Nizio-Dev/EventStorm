@@ -1,9 +1,5 @@
-version: '3.4'
-
-name: eventstorm
-
 services:
-    eventstorm.api:
+    eventstorm_api:
         container_name: eventstorm_api
         image: ${DOCKER_REGISTRY-}eventstormapi
         build:

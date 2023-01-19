@@ -1,6 +1,3 @@
 1. Add tests
 2. Add polly
-3. Add fluent api for data schema in DB
-4. Finish fluent validation
-7. Add Https/SSL to docker
-8. Use swagger on docker
+3. Add Https/SSL to docker

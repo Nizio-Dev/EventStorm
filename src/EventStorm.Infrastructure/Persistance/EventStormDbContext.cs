@@ -1,5 +1,6 @@
 ﻿using EventStorm.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace EventStorm.Infrastructure.Persistance
 {
@@ -17,13 +18,7 @@ namespace EventStorm.Infrastructure.Persistance
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Attender>()
-                .HasMany(a => a.MeetingsOwnership)
-                .WithOne(m => m.Owner);
-
-            builder.Entity<Meeting>()
-                .Property(m => m.Name)
-                .HasMaxLength(50);
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

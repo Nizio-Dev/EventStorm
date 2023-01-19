@@ -1,7 +1,5 @@
-version: '3.4'
-
 services:
-  eventstorm.api:
+  eventstorm_api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
