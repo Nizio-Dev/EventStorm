@@ -8,13 +8,23 @@ namespace EventStorm.Infrastructure.Persistance.EntityBuilder
     {
         public void Configure(EntityTypeBuilder<Attendance> builder)
         {
+            builder
+                .HasOne(a => a.Attender)
+                .WithMany(a => a.Attendances)
+                .IsRequired();
+
+            builder
+                .HasOne(a => a.Meeting)
+                .WithMany(m => m.Attendances)
+                .IsRequired();
+
             builder.Property(m => m.Id)
                 .IsRequired();
 
-            builder.Property(a => a.Meeting)
+            builder.Property(a => a.MeetingId)
                 .IsRequired();
 
-            builder.Property(a => a.Attender)
+            builder.Property(a => a.AttenderId)
                 .IsRequired();
 
             builder.Property(a => a.Status)

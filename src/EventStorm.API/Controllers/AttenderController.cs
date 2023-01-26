@@ -35,7 +35,7 @@ namespace EventStorm.API.Controllers
 				return await updateAttenderAsync();
 			}
 
-			return Ok(attender);
+			return RedirectToAction(nameof(GetAttender), new { id = attender.Id });
 		}
 
         [ResourceExists(typeof(Attender))]

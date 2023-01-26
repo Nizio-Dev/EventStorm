@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using EventStorm.Application.Exceptions;
+using EventStorm.Application.Interface;
 using EventStorm.Application.Responses;
 using EventStorm.Domain.Entities;
-using EventStorm.Infrastructure.Persistance;
 using EventStorm.Web.Helpers;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -13,10 +12,10 @@ namespace EventStorm.Application.Services
 
 	public class AttenderService : IAttenderService
 	{
-		private readonly EventStormDbContext _dbContext;
+		private readonly IDbContext _dbContext;
 		private readonly IMapper _mapper;
 
-		public AttenderService(EventStormDbContext dbContext, IMapper mapper)
+		public AttenderService(IDbContext dbContext, IMapper mapper)
 		{
 			_dbContext = dbContext;
 			_mapper = mapper;

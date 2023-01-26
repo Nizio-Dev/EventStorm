@@ -1,10 +1,11 @@
-﻿using EventStorm.Domain.Entities;
+﻿using EventStorm.Application.Interface;
+using EventStorm.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace EventStorm.Infrastructure.Persistance
 {
-    public class EventStormDbContext : DbContext
+    public class EventStormDbContext : DbContext, IDbContext
     {
         public EventStormDbContext(DbContextOptions<EventStormDbContext> options) : base(options) { }
 

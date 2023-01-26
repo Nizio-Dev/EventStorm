@@ -8,10 +8,19 @@ namespace EventStorm.Infrastructure.Persistance.EntityBuilder
     {
         public void Configure(EntityTypeBuilder<Meeting> builder)
         {
+            builder
+                .HasOne(m => m.Owner)
+                .WithMany(o => o.MeetingsOwnership)
+                .IsRequired();
+
+            builder
+                .HasMany(m => m.Attendances)
+                .WithOne(a => a.Meeting);
+
             builder.Property(m => m.Id)
                 .IsRequired();
 
-            builder.Property(m => m.Owner)
+            builder.Property(m => m.OwnerId)
                 .IsRequired();
 
             builder.Property(m => m.Name)

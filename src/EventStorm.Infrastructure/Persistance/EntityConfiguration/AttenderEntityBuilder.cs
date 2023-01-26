@@ -12,6 +12,10 @@ namespace EventStorm.Infrastructure.Persistance.EntityBuilder
                 .HasMany(a => a.MeetingsOwnership)
                 .WithOne(m => m.Owner);
 
+            builder
+                .HasMany(a => a.Attendances)
+                .WithOne(a => a.Attender);
+
             builder.Property(a => a.Id)
                 .IsRequired();
 

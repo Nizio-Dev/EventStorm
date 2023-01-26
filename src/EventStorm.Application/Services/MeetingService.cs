@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using EventStorm.Application.Exceptions;
+using EventStorm.Application.Interface;
 using EventStorm.Application.Requests;
 using EventStorm.Application.Responses;
 using EventStorm.Domain.Entities;
-using EventStorm.Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Sieve.Models;
 using Sieve.Services;
@@ -13,11 +13,11 @@ namespace EventStorm.Application.Services
 {
     public class MeetingService : IMeetingService
     {
-        private readonly EventStormDbContext _dbContext;
+        private readonly IDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly ISieveProcessor _sieveProcessor;
 
-        public MeetingService(IMapper mapper, EventStormDbContext dbContext, ISieveProcessor sieveProcessor)
+        public MeetingService(IMapper mapper, IDbContext dbContext, ISieveProcessor sieveProcessor)
         {
             _mapper = mapper;
             _dbContext = dbContext;

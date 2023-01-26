@@ -32,7 +32,8 @@ namespace EventStorm.Application.Requests.Validators
                 .NotNull();
 
             RuleFor(x => x)
-                .Must(HaveProperTimeRange);
+                .Must(HaveProperTimeRange)
+                .WithMessage("Ending date must come before starting date.");
         }
 
         private bool HaveProperTimeRange(CreateMeetingDto data)

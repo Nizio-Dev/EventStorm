@@ -1,3 +1,4 @@
 1. Add tests
 2. Add polly
 3. Add Https/SSL to docker
+4. Add logging
